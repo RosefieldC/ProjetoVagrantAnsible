@@ -25,10 +25,10 @@ Vagrant.configure("2") do |config|
  #   vb.customize ["createhd", "--filename", "disks.vdi", "--size", 10240] # 10 GB
   #  vb.customize ["createhd", "--filename", "diskt.vdi", "--size", 10240] # 10 GB
   end
-  # Configurar automação
-#  config.vm.provision "ansible" do |ansible|
- #   ansible.playbook = "playbook.yml"
-  #end
+   #Playbook main
+  config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "/home/vagrant/playbook.yml"
+  end
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
