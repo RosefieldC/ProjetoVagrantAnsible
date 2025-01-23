@@ -1,0 +1,20 @@
+---
+- name: Configurar mensagem de saudação
+  hosts: all
+  become: true
+  tasks:
+    - name: Configurar mensagem no arquivo motd
+      ansible.builtin.copy:
+        dest: /etc/motd
+        content: |
+          Acesso restrito apenas à pessoas com autorização expressa
+          Seu acesso está sendo monitorado !!!
+
+    - name: Remover mensagem duplicada de outros arquivos
+      ansible.builtin.lineinfile:
+        path: "{{ item }}"
+        state: absent
+        line: "Acesso restrito apenas à pessoas com autorização expressa"
+      with_items:
+        - /etc/issue
+        - /etc/issue.net

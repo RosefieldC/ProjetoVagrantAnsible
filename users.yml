@@ -1,0 +1,14 @@
+---
+- name: Criar usuários
+  hosts: all
+  become: true
+  tasks:
+    - name: Criar usuário helio
+      ansible.builtin.user:
+        name: helio
+        shell: /bin/bash
+
+    - name: Criar usuário jessica
+      ansible.builtin.user:
+        name: jessica
+        shell: /bin/bash

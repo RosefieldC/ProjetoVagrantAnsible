@@ -1,0 +1,120 @@
+---
+- name: Configuração de SSH
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Desabilitar login como root via SSH
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: "PermitRootLogin no"
+
+    - name: Permitir autenticação apenas por chave pública
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: "PasswordAuthentication no"
+
+    - name: Permitir apenas acesso de usuários do grupo acesso_ssh
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^AllowGroups'
+        line: "AllowGroups acesso_ssh"
+
+    - name: Criar o grupo acesso_ssh
+      group:
+        name: acesso_ssh
+        state: present
+
+    - name: Adicionar usuários ao grupo acesso_ssh
+      user:
+        name: "{{ item }}"
+        groups: acesso_ssh
+        append: yes
+      loop:
+        - helio
+        - jessica
+        - vagrant  # Adicionando o usuário vagrant ao grupo
+
+    - name: Criar diretório .ssh para o usuário helio
+      file:
+        path: /home/helio/.ssh
+        state: directory
+        owner: helio
+        group: helio
+        mode: '0700'
+
+    - name: Criar diretório .ssh para o usuário jessica
+      file:
+        path: /home/jessica/.ssh
+        state: directory
+        owner: jessica
+        group: jessica
+        mode: '0700'
+
+    - name: Criar diretório .ssh para o usuário vagrant
+      file:
+        path: /home/vagrant/.ssh
+        state: directory
+        owner: vagrant
+        group: vagrant
+        mode: '0700'
+
+    - name: Gerar chave SSH para o usuário helio
+      user:
+        name: helio
+        generate_ssh_key: yes
+        ssh_key_type: rsa
+        ssh_key_bits: 2048
+        ssh_key_file: "/home/helio/.ssh/id_rsa"
+
+    - name: Gerar chave SSH para o usuário jessica
+      user:
+        name: jessica
+        generate_ssh_key: yes
+        ssh_key_type: rsa
+        ssh_key_bits: 2048
+        ssh_key_file: "/home/jessica/.ssh/id_rsa"
+
+    - name: Gerar chave SSH para o usuário vagrant
+      user:
+        name: vagrant
+        generate_ssh_key: yes
+        ssh_key_type: rsa
+        ssh_key_bits: 2048
+        ssh_key_file: "/home/vagrant/.ssh/id_rsa"
+
+    - name: Exibir conteúdo da chave pública do usuário helio
+      command: cat /home/helio/.ssh/id_rsa.pub
+      register: ssh_pub_key_helio
+
+    - name: Exibir conteúdo da chave pública do usuário jessica
+      command: cat /home/jessica/.ssh/id_rsa.pub
+      register: ssh_pub_key_jessica
+
+    - name: Exibir conteúdo da chave pública do usuário vagrant
+      command: cat /home/vagrant/.ssh/id_rsa.pub
+      register: ssh_pub_key_vagrant
+
+    - name: Adicionar chave pública do usuário helio à lista de chaves autorizadas
+      authorized_key:
+        user: helio
+        state: present
+        key: "{{ ssh_pub_key_helio.stdout }}"
+
+    - name: Adicionar chave pública do usuário jessica à lista de chaves autorizadas
+      authorized_key:
+        user: jessica
+        state: present
+        key: "{{ ssh_pub_key_jessica.stdout }}"
+
+    - name: Adicionar chave pública do usuário vagrant à lista de chaves autorizadas
+      authorized_key:
+        user: vagrant
+        state: present
+        key: "{{ ssh_pub_key_vagrant.stdout }}"
+
+    - name: Reiniciar o serviço SSH para aplicar configurações
+      service:
+        name: sshd
+        state: restarted

@@ -1,0 +1,25 @@
+---
+- name: Configurar sudo para grupo ifpb
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Criar grupo ifpb
+      group:
+        name: ifpb
+        state: present
+
+    - name: Adicionar usuários ao grupo ifpb
+      user:
+        name: "{{ item }}"
+        groups: ifpb
+        append: yes
+      loop:
+        - helio
+        - jessica
+
+    - name: Permitir sudo para o grupo ifpb
+      lineinfile:
+        path: /etc/sudoers
+        regexp: '^%ifpb'
+        line: "%ifpb ALL=(ALL) NOPASSWD:ALL"
+        validate: 'visudo -cf %s'

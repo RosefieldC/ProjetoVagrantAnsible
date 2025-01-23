@@ -1,0 +1,44 @@
+---
+- name: Monitoramento de acesso
+  hosts: localhost
+  become: yes
+  tasks:
+    # Passo 1: Criar o diretório /dados/nfs/acessos se não existir
+    - name: Criar diretório /dados/nfs se não existir
+      file:
+        path: /dados/nfs
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    # Passo 2: Criar o arquivo /dados/nfs/acessos se não existir
+    - name: Criar arquivo /dados/nfs/acessos
+      file:
+        path: /dados/nfs/acessos
+        state: touch
+        owner: root
+        group: root
+        mode: '0644'
+
+    # Passo 3: Criar o script de monitoramento de acesso
+    - name: Criar script de monitoramento de acesso
+      copy:
+        dest: /usr/local/bin/monitorar_acesso.sh
+        content: |
+          #!/bin/bash
+          data_hora=$(date "+%Y-%m-%d %H:%M")
+          nome_login=$(whoami)
+          device_tty=$(tty)
+          ip_remoto=$(who -m | awk '{print $5}' | tr -d '()')
+          echo "$data_hora; $nome_login; $device_tty; $ip_remoto" >> /dados/nfs/acessos
+        mode: '0755'
+        owner: root
+        group: root
+
+    # Passo 4: Adicionar o script ao arquivo /etc/profile para ser executado a cada login
+    - name: Adicionar script de monitoramento ao /etc/profile
+      lineinfile:
+        path: /etc/profile
+        line: "/usr/local/bin/monitorar_acesso.sh"
+        create: yes

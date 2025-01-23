@@ -1,0 +1,60 @@
+---
+- name: Configuração de NFS
+  hosts: localhost
+  become: yes
+  tasks:
+    # Passo 1: Instalar o NFS Server
+    - name: Instalar pacotes necessários para o NFS
+      package:
+        name:
+          - nfs-kernel-server
+          - nfs-common
+        state: present
+
+    # Passo 2: Criar o diretório /dados/nfs se não existir
+    - name: Criar diretório /dados/nfs
+      file:
+        path: /dados/nfs
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    # Passo 3: Configurar o arquivo /etc/exports para permitir o compartilhamento
+    - name: Configurar /etc/exports
+      lineinfile:
+        path: /etc/exports
+        regexp: '^/dados/nfs'
+        line: '/dados/nfs 192.168.57.0/24(rw,sync,no_subtree_check,insecure,all_squash,anonuid=1001,anongid=1001)'
+      notify:
+        - Restart NFS
+
+    # Passo 4: Criar o usuário "nfs-ifpb" (se não existir)
+    - name: Criar o usuário nfs-ifpb
+      user:
+        name: nfs-ifpb
+        state: present
+        shell: /usr/sbin/nologin
+        create_home: no
+
+    # Passo 5: Configurar permissões no diretório /dados/nfs
+    - name: Alterar permissões no diretório /dados/nfs para o usuário nfs-ifpb
+      file:
+        path: /dados/nfs
+        owner: nfs-ifpb
+        group: nfs-ifpb
+        mode: '0770'
+
+    # Passo 6: Configurar o NFS para forçar o esvaziamento do buffer de memória
+    - name: Configurar esvaziamento imediato do buffer de memória para NFS
+      lineinfile:
+        path: /etc/nfs.conf
+        regexp: '^#nfs.nfs4_server_tune'
+        line: 'nfs.nfs4_server_tune=1'
+
+  handlers:
+    # Passo 7: Reiniciar o serviço NFS após alterações
+    - name: Restart NFS
+      systemd:
+        name: nfs-kernel-server
+        state: restarted

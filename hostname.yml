@@ -1,0 +1,14 @@
+---
+- name: Configurar o hostname
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Alterar o hostname
+      hostname:
+        name: "p0-helio-jessica"
+      
+    - name: Garantir que o hostname esteja no /etc/hosts
+      lineinfile:
+        path: /etc/hosts
+        regexp: '^127\.0\.1\.1'
+        line: "127.0.1.1 p0-helio-jessica"

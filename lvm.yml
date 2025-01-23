@@ -1,0 +1,77 @@
+---
+- name: Configuração do Gerenciamento de Volumes Lógicos
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Atualizar repositórios de pacotes
+      apt:
+        update_cache: yes
+
+    - name: Instalar pacote para LVM
+      apt:
+        name: lvm2
+        state: present
+
+    - name: Listar discos disponíveis
+      command: lsblk -o NAME,SIZE
+      register: lista_de_dispositivos
+      changed_when: false
+
+    - name: Exibir discos encontrados
+      debug:
+        var: lista_de_dispositivos.stdout_lines
+
+    - name: Criar volume group "dados" (supondo discos /dev/sdb, /dev/sdc, /dev/sdd)
+      lvg:
+        vg: dados
+        pvs:
+          - /dev/sdb
+          - /dev/sdc
+          - /dev/sdd
+      register: resultado_vg
+      ignore_errors: yes  # Ignorar se já existir
+
+    - name: Exibir status dos grupos de volumes
+      command: vgs
+      register: resultado_vgs
+      changed_when: false
+
+    - name: Exibir detalhes do grupo "dados"
+      debug:
+        var: resultado_vgs.stdout
+
+    - name: Criar volume lógico "sistema" no grupo "dados"
+      lvol:
+        vg: dados
+        lv: sistema
+        size: 8G
+      register: resultado_lv
+
+    - name: Exibir status do volume lógico
+      command: lvdisplay
+      register: resultado_lvdisplay
+      changed_when: false
+
+    - name: Exibir informações do volume lógico "sistema"
+      debug:
+        var: resultado_lvdisplay.stdout
+
+    - name: Formatar volume lógico "sistema" com o sistema de arquivos ext4
+      filesystem:
+        fstype: ext4
+        dev: /dev/dados/sistema
+      when: resultado_lv is not skipped
+
+    - name: Montar volume lógico "sistema" em /dados
+      mount:
+        path: /dados
+        src: /dev/dados/sistema
+        fstype: ext4
+        state: mounted
+      when: resultado_lv is not skipped
+
+    - name: Garantir montagem automática em /etc/fstab
+      lineinfile:
+        path: /etc/fstab
+        line: "/dev/dados/sistema /dados ext4 defaults 0 0"
+        state: present
