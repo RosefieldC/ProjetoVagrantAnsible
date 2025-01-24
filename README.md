@@ -63,6 +63,7 @@ Este playbook configura uma mensagem de saudação que será exibida automaticam
 
 Após a execução do playbook, ao se conectar ao sistema via SSH, a mensagem configurada será exibida no terminal. Para verificar se o arquivo foi atualizado, você pode visualizar o conteúdo do arquivo /etc/motd com o comando: "cat /etc/motd"
 
+Obs: Foi necessário desativar o PAM MOTD, pois estava duplicando a mensagem de saudação.  Foi acessado o /etc/pam.d/sshd e acrescentado uma tag no pam_motd.so para evitar a duplicação.  
 _______________________________________________________________________________________________
 
 **5º Playbook: sudo.yml**
