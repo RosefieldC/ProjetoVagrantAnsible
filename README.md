@@ -19,8 +19,8 @@ Box: generic/debian12 – Uma imagem genérica e leve baseada no Debian 12.
 - Memória: 1024 MB de RAM alocados para a máquina virtual.
 
 - Discos Virtuais:
-diskp com capacidade de 10 GB.
-disks com capacidade de 10 GB.
+diskp com capacidade de 10 GB. ;
+disks com capacidade de 10 GB. ;
 diskt com capacidade de 10 GB.
 
 - Rede: Configuração de rede privada com o endereço IP 192.168.57.10.
@@ -42,6 +42,7 @@ ________________________________________________________________________________
 **2º Playbook: [hostname.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/hostname.yml)**
 
 O playbook altera o hostname do sistema e atualiza o arquivo /etc/hosts para assegurar que o novo nome seja corretamente refletido no sistema.
+
 Modo de uso: comando "ansible-playbook -i host.ini hostname.yml"
 
 Para verificar se o hostname foi alterado corretamente, você pode usar o comando "cat /etc/hosts" no terminal da máquina virtual.
@@ -64,7 +65,7 @@ Este playbook configura uma mensagem de saudação que será exibida automaticam
 
 Após a execução do playbook, ao se conectar ao sistema via SSH, a mensagem configurada será exibida no terminal. Para verificar se o arquivo foi atualizado, você pode visualizar o conteúdo do arquivo /etc/motd com o comando: "cat /etc/motd"
 
-Obs: Foi necessário desativar o PAM MOTD, pois estava duplicando a mensagem de saudação.  Foi acessado o /etc/pam.d/sshd e acrescentado uma tag no pam_motd.so para evitar a duplicação.  
+**Obs:** Foi necessário desativar o PAM MOTD, pois estava duplicando a mensagem de saudação. Foi acessado o /etc/pam.d/sshd e acrescentado uma tag no pam_motd.so para evitar a duplicação.  
 _______________________________________________________________________________________________
 
 **5º Playbook: [sudo.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/sudo.yml)**
