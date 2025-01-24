@@ -109,9 +109,9 @@ Este playbook configura o servidor NFS para compartilhar o diretório /dados/nfs
 Para rodar este playbook, use o comando: "ansible-playbook -i hosts.ini nfs.yml"
 
 Para verificar, use o comando:
-blkid /dev/dados/sistema
+"blkid /dev/dados/sistema
 mount | grep /dados
-ls -l /dados
+ls -l /dados"
 
 _______________________________________________________________________________________________
 
