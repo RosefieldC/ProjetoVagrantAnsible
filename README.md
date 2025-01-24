@@ -34,6 +34,7 @@ ________________________________________________________________________________
 **1º  Playbook: update.yml**
 
 O playbook executa uma atualização completa do sistema operacional, garantindo que todos os pacotes estejam atualizados para as versões mais recentes, melhorando a segurança e a estabilidade da VM.
+
 Modo de uso: comando "ansible-playbook -i host.ini update.yml"
 
 _______________________________________________________________________________________________
