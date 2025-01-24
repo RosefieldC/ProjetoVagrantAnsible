@@ -6,6 +6,7 @@
 
 **Disciplina: Administração de Sistemas Abertos**
 
+**Professor: Pedro Batista**
 _______________________________________________________________________________________________
 
 **Descrição**
