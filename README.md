@@ -39,7 +39,7 @@ Modo de uso: comando "ansible-playbook -i host.ini update.yml"
 
 _______________________________________________________________________________________________
 
-**2º Playbook: [hostname.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/hostname.yml)
+**2º Playbook: [hostname.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/hostname.yml)**
 
 O playbook altera o hostname do sistema e atualiza o arquivo /etc/hosts para assegurar que o novo nome seja corretamente refletido no sistema.
 Modo de uso: comando "ansible-playbook -i host.ini hostname.yml"
@@ -48,7 +48,7 @@ Para verificar se o hostname foi alterado corretamente, você pode usar o comand
 
 _______________________________________________________________________________________________
 
-**3º  Playbook: [users.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/users.yml)
+**3º  Playbook: [users.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/users.yml)**
 
 Este playbook cria dois usuários no sistema, um para cada integrante do grupo (helio e jessica), com base no primeiro nome de cada pessoa. A tarefa também inclui a configuração das senhas desses usuários, garantindo que eles possam acessar o sistema. 
 
@@ -58,7 +58,7 @@ Para verificar a criação dos usuários você pode usar o comando: "getent pass
 
 _______________________________________________________________________________________________
 
-**4º  Playbook: [saudacao.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/saudacao.yml)
+**4º  Playbook: [saudacao.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/saudacao.yml)**
 
 Este playbook configura uma mensagem de saudação que será exibida automaticamente quando um usuário acessar o sistema via SSH. A mensagem informa ao usuário que o acesso é restrito a pessoas autorizadas e que a atividade está sendo monitorada.
 
@@ -67,7 +67,7 @@ Após a execução do playbook, ao se conectar ao sistema via SSH, a mensagem co
 Obs: Foi necessário desativar o PAM MOTD, pois estava duplicando a mensagem de saudação.  Foi acessado o /etc/pam.d/sshd e acrescentado uma tag no pam_motd.so para evitar a duplicação.  
 _______________________________________________________________________________________________
 
-**5º Playbook: [sudo.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/sudo.yml)
+**5º Playbook: [sudo.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/sudo.yml)**
 
 Este playbook configura o acesso de usuários do grupo ifpb para que possam executar comandos com privilégios de root utilizando o programa sudo. Isso garante que os membros do grupo possam realizar tarefas administrativas no sistema, sem a necessidade de acesso direto à conta root.
 
@@ -79,7 +79,7 @@ Passo 2: Faça login com o usuário do grupo ifpb e execute um comando com sudo 
 
 _______________________________________________________________________________________________
 
-**6º Playbook: [ssh.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/ssh.yml)
+**6º Playbook: [ssh.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/ssh.yml)**
 
 Este playbook configura o serviço SSH para aumentar a segurança do sistema, desabilitando o login do usuário root, permitindo apenas autenticação por chave pública e restringindo o acesso ao SSH para usuários de um grupo específico.
 
@@ -89,7 +89,7 @@ Para testar a configuração, acesse a máquina virtual via SSH com o comando: "
 
 _______________________________________________________________________________________________
 
-**7º  Playbook: [lvm.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/lvm.yml)
+**7º  Playbook: [lvm.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/lvm.yml)**
 
 Este playbook configura o LVM (Logical Volume Manager) para gerenciar os três discos de 10 GB, criando um Volume Group e Logical Volume para armazenamento, além de formatar e configurar a partição para ser montada automaticamente.
 
@@ -103,7 +103,7 @@ Mostrar os dispositivos e pontos de montagem: "lsblk"
 
 _______________________________________________________________________________________________
 
-**8º Playbook: [nfs.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/nfs.yml)
+**8º Playbook: [nfs.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/nfs.yml)**
 
 Este playbook configura o servidor NFS para compartilhar o diretório /dados/nfs /dados/nfs com qualquer host da rede 192.168.57.0/24. com permissões específicas de escrita para o usuário "nfs-ifpb" e várias medidas de segurança, como a remoção do shell do usuário e o mapeamento de usuários remotos.
 
@@ -116,7 +116,7 @@ ls -l /dados"
 
 _______________________________________________________________________________________________
 
-**9º  Playbook: [monitoramento.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/monitoramento.yml)
+**9º  Playbook: [monitoramento.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/monitoramento.yml)**
 
 Este playbook configura o monitoramento de acessos no sistema, registrando informações detalhadas sobre cada login. O script executado adiciona entradas no arquivo /dados/nfs/acessos com data, nome de login, dispositivo TTY e IP remoto, permitindo o acompanhamento dos acessos ao sistema.
 
