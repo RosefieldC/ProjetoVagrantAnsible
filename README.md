@@ -1,6 +1,4 @@
-Documentação do Projeto que tem como objetivo desenvolver competências práticas em DevOps e Infraestrutura como Código (IaC) utilizando as ferramentas Vagrant e Ansible.
-
-Este projeto visa a automação da configuração de servidores virtuais utilizando Vagrant e Ansible, abordando práticas de segurança, gerenciamento de usuários e configuração de SSH.
+Documentação do Projeto que tem como objetivo desenvolver competências práticas em DevOps e Infraestrutura como Código (IaC), a automação da configuração de servidores virtuais utilizando Vagrant e Ansible, abordando práticas de segurança, gerenciamento de usuários e configuração de SSH.
 
 Integrantes: Helio Vieira e Jessica Cavalcante 
 Disciplina: Administração de Sistemas Abertos
@@ -46,7 +44,7 @@ Para verificar se o hostname foi alterado corretamente, você pode usar o comand
 
 _______________________________________________________________________________________________
 
-3. Playbook users.yml
+3. Playbook: users.yml
 Este playbook cria dois usuários no sistema, um para cada integrante do grupo (helio e jessica), com base no primeiro nome de cada pessoa. A tarefa também inclui a configuração das senhas desses usuários, garantindo que eles possam acessar o sistema. 
 
 Modo de uso: comando "ansible-playbook -i host.ini users.yml"
@@ -55,7 +53,7 @@ Para verificar a criação dos usuários você pode usar o comando: "getent pass
 
 _______________________________________________________________________________________________
 
-4. Playbook saudacao.yml
+4. Playbook: saudacao.yml
 
 Este playbook configura uma mensagem de saudação que será exibida automaticamente quando um usuário acessar o sistema via SSH. A mensagem informa ao usuário que o acesso é restrito a pessoas autorizadas e que a atividade está sendo monitorada.
 
@@ -63,7 +61,7 @@ Após a execução do playbook, ao se conectar ao sistema via SSH, a mensagem co
 
 _______________________________________________________________________________________________
 
-5. Playbook sudo.yml
+5. Playbook: sudo.yml
 
 Este playbook configura o acesso de usuários do grupo ifpb para que possam executar comandos com privilégios de root utilizando o programa sudo. Isso garante que os membros do grupo possam realizar tarefas administrativas no sistema, sem a necessidade de acesso direto à conta root.
 
@@ -75,7 +73,7 @@ Passo 2: Faça login com o usuário do grupo ifpb e execute um comando com sudo 
 
 _______________________________________________________________________________________________
 
-6. Playbook ssh.yml
+6. Playbook: ssh.yml
 
 Este playbook configura o serviço SSH para aumentar a segurança do sistema, desabilitando o login do usuário root, permitindo apenas autenticação por chave pública e restringindo o acesso ao SSH para usuários de um grupo específico.
 
@@ -85,7 +83,7 @@ Para testar a configuração, acesse a máquina virtual via SSH com o comando: "
 
 _______________________________________________________________________________________________
 
-7. Playbook lvm.yml
+7. Playbook: lvm.yml
 
 Este playbook configura o LVM (Logical Volume Manager) para gerenciar os três discos de 10 GB, criando um Volume Group e Logical Volume para armazenamento, além de formatar e configurar a partição para ser montada automaticamente.
 
@@ -99,4 +97,5 @@ Mostrar os dispositivos e pontos de montagem: "lsblk"
 
 _______________________________________________________________________________________________
 
+8. Playbook: nfs.yml
 
