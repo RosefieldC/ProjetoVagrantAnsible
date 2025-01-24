@@ -31,7 +31,7 @@ ________________________________________________________________________________
 
 # Playbooks Ansible
 
-**1º  Playbook: [update.yml**](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/update.yml)
+**1º  Playbook: [update.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/update.yml)**
 
 O playbook executa uma atualização completa do sistema operacional, garantindo que todos os pacotes estejam atualizados para as versões mais recentes, melhorando a segurança e a estabilidade da VM.
 
