@@ -10,7 +10,7 @@ ________________________________________________________________________________
 
 O Vagrantfile foi projetado para configurar um ambiente virtual utilizando o Vagrant em conjunto com o provedor VirtualBox. Ele é baseado na imagem generic/debian12 e atende aos requisitos definidos para a infraestrutura, incluindo discos adicionais, rede privada e personalização do hostname.
 
-Configuração do Ambiente
+**Configuração do Ambiente**
 
 Box: generic/debian12 – Uma imagem genérica e leve baseada no Debian 12.
 
