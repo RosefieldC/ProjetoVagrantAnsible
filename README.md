@@ -5,7 +5,7 @@ Disciplina: Administração de Sistemas Abertos
 
 _______________________________________________________________________________________________
 
-Descrição
+**Descrição**
 
 O Vagrantfile foi projetado para configurar um ambiente virtual utilizando o Vagrant em conjunto com o provedor VirtualBox. Ele é baseado na imagem generic/debian12 e atende aos requisitos definidos para a infraestrutura, incluindo discos adicionais, rede privada e personalização do hostname.
 
