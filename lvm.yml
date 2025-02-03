@@ -1,6 +1,6 @@
 ---
 - name: Configuração do Gerenciamento de Volumes Lógicos
-  hosts: localhost
+  hosts: all
   become: yes
   tasks:
     - name: Atualizar repositórios de pacotes
