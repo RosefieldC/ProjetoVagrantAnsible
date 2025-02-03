@@ -1,6 +1,6 @@
 ---
 - name: Monitoramento de acesso
-  hosts: localhost
+  hosts: all
   become: yes
   tasks:
     # Passo 1: Criar o diretório /dados/nfs/acessos se não existir
