@@ -1,6 +1,6 @@
 ---
 - name: Configuração de SSH
-  hosts: localhost
+  hosts: all
   become: yes
   tasks:
     - name: Desabilitar login como root via SSH
