@@ -17,26 +17,23 @@ Vagrant.configure("2") do |config|
   # Configuração do provider VirtualBox
   config.vm.provider "virtualbox" do |vb|
     vb.memory = "1024"
+
+    vb.customize ["createhd", "--filename", "diskp.vdi", "--size", 10240] # 10 GB
+    vb.customize ["createhd", "--filename", "disks.vdi", "--size", 10240] # 10 GB
+    vb.customize ["createhd", "--filename", "diskt.vdi", "--size", 10240] # 10 GB
+
   end  # <-- Fechando o bloco provider VirtualBox
 
   config.vm.network "private_network", ip: "192.168.57.10"
   config.vm.hostname = "HelioJessica"
 
-  
   # vb.customize ["createhd", "--filename", "diskp.vdi", "--size", 10240] # 10 GB
   # vb.customize ["createhd", "--filename", "disks.vdi", "--size", 10240] # 10 GB
   # vb.customize ["createhd", "--filename", "diskt.vdi", "--size", 10240] # 10 GB
 
   # Configurar automação com provisionamento Ansible
-  config.vm.provision "shell", inline: <<-SHELL
-    if ! command -v ansible-playbook &> /dev/null
-    then
-      echo "Ansible não está instalado. Instalando..."
-      sudo apt update
-      sudo apt install -y ansible
-    fi
-
-    ansible-playbook -i /home/vagrant/host.ini /home/vagrant/playbook.yml
-  SHELL
+   config.vm.provision "ansible" do |ansible|
+    ansible.playbook = "/home/vagrant/playbook.yml"
+  
 end  # <-- Fechamento do bloco Vagrant.configure
 
