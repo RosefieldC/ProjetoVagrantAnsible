@@ -1,6 +1,6 @@
 ---
 - name: Configurar o hostname
-  hosts: localhost
+  hosts: all
   become: yes
   tasks:
     - name: Alterar o hostname
