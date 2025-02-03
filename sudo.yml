@@ -1,6 +1,6 @@
 ---
 - name: Configurar sudo para grupo ifpb
-  hosts: localhost
+  hosts: all
   become: yes
   tasks:
     - name: Criar grupo ifpb
