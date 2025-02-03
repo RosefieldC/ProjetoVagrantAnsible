@@ -1,6 +1,6 @@
 ---
 - name: Configuração de NFS
-  hosts: localhost
+  hosts: all
   become: yes
   tasks:
     # Passo 1: Instalar o NFS Server
