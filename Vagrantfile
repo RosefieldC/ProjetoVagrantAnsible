@@ -25,6 +25,7 @@ Vagrant.configure("2") do |config|
 
   # Configuração de provisionamento Ansible
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "/home/vagrant/playbook.yml"
+    ansible.playbook = "playbook.yml"
+    ansible.compatibility_mode = "2.0"
   end
 end
