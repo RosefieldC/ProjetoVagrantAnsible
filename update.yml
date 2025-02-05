@@ -1,51 +1,22 @@
 ---
-- name: Corrigir problemas de pacotes e atualização no Debian
+- name: Atualização completa do sistema operacional
   hosts: all
   become: yes
 
   tasks:
-    - name: Verificar espaço em disco
-      command: df -h
-      register: disk_space
-      failed_when: false
-
-    - name: Exibir espaço em disco
-      debug:
-        msg: "{{ disk_space.stdout }}"
-
-    - name: Corrigir pacotes quebrados
-      command:
-        cmd: dpkg --configure -a
-      when: ansible_facts['distribution'] == 'Debian'
-      notify:
-        - Atualizar pacotes
-
-    - name: Corrigir dependências quebradas
-      command:
-        cmd: apt-get install -f
-      when: ansible_facts['distribution'] == 'Debian'
-      notify:
-        - Atualizar pacotes
-
-    - name: Atualizar cache de pacotes
+    - name: Atualizar a lista de pacotes
       apt:
         update_cache: yes
-      register: apt_update
 
-    - name: Atualizar pacotes
+    - name: Atualizar todos os pacotes do sistema
       apt:
-        upgrade: dist
-        force_apt_get: yes
-      when: apt_update.changed
+        upgrade: full
 
-    - name: Verificar se a atualização foi bem-sucedida
-      debug:
-        msg: "A atualização foi realizada com sucesso"
-      when: apt_update.changed
-
-  handlers:
-    - name: Atualizar pacotes
+    - name: Remover pacotes não utilizados
       apt:
-        upgrade: dist
-        force_apt_get: yes
-      become: yes
+        autoremove: yes
+
+    - name: Limpar cache de pacotes
+      apt:
+        autoclean: yes
+
