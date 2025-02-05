@@ -1,10 +1,11 @@
 ---
-- import_playbook: hostname.yml
-- import_playbook: lvm.yml
-- import_playbook: nfs.yml
-- import_playbook: ssh.yml
 - import_playbook: update.yml
-- import_playbook: monitoramento.yml
+- import_playbook: hostname.yml
+- import_playbook: users.yml
 - import_playbook: saudacao.yml
 - import_playbook: sudo.yml
-- import_playbook: users.yml
+- import_playbook: ssh.yml
+- import_playbook: lvm.yml
+- import_playbook: nfs.yml
+- import_playbook: monitoramento.yml
+
