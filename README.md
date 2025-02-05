@@ -79,8 +79,6 @@ ________________________________________________________________________________
 
 Este playbook configura o serviço SSH para aumentar a segurança do sistema, desabilitando o login do usuário root, permitindo apenas autenticação por chave pública e restringindo o acesso ao SSH para usuários de um grupo específico.
 
-Para rodar este playbook, use o comando: "ansible-playbook -i hosts.ini ssh.yml"
-
 Para testar a configuração, acesse a máquina virtual via SSH com o comando: "ssh -i /home/helio/.ssh/id_rsa helio@192.168.57.10"
 
 _______________________________________________________________________________________________
@@ -88,8 +86,6 @@ ________________________________________________________________________________
 **7º  Playbook: [lvm.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/lvm.yml)**
 
 Este playbook configura o LVM (Logical Volume Manager) para gerenciar os três discos de 10 GB, criando um Volume Group e Logical Volume para armazenamento, além de formatar e configurar a partição para ser montada automaticamente.
-
-Para rodar este playbook, use o comando: "ansible-playbook -i hosts.ini lvm.yml"
 
 Após executar o playbook, verifique as configurações com os seguintes comandos: 
 
@@ -103,8 +99,6 @@ ________________________________________________________________________________
 
 Este playbook configura o servidor NFS para compartilhar o diretório /dados/nfs /dados/nfs com qualquer host da rede 192.168.57.0/24. com permissões específicas de escrita para o usuário "nfs-ifpb" e várias medidas de segurança, como a remoção do shell do usuário e o mapeamento de usuários remotos.
 
-Para rodar este playbook, use o comando: "ansible-playbook -i hosts.ini nfs.yml"
-
 Para verificar, use o comando:
 "blkid /dev/dados/sistema
 mount | grep /dados
@@ -115,8 +109,6 @@ ________________________________________________________________________________
 **9º  Playbook: [monitoramento.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/monitoramento.yml)**
 
 Este playbook configura o monitoramento de acessos no sistema, registrando informações detalhadas sobre cada login. O script executado adiciona entradas no arquivo /dados/nfs/acessos com data, nome de login, dispositivo TTY e IP remoto, permitindo o acompanhamento dos acessos ao sistema.
-
-Para rodar este playbook, use o comando: "ansible-playbook -i hosts.ini monitoramento.yml"
 
 Após a execução do playbook, verifique o conteúdo do arquivo /dados/nfs/acessos para confirmar que os acessos foram registrados corretamente:
 "cat /dados/nfs/acessos"
