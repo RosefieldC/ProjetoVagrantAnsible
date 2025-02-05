@@ -114,6 +114,18 @@
         state: present
         key: "{{ ssh_pub_key_vagrant.stdout }}"
 
+    - name: Copiar chave pública para o usuário {{ ssh_user }}
+      authorized_key:
+        user: "helio"
+        state: present
+        key: "{{ lookup('file', '~/ProjetoVagrantAnsible/chave/id_rsa_helio.pub') }}"
+
+    - name: Copiar chave pública para o usuário {{ ssh_user }}
+      authorized_key:
+        user: "jessica"
+        state: present
+        key: "{{ lookup('file', '~/ProjetoVagrantAnsible/chave/id_rsa_jessica.pub') }}"
+
     - name: Reiniciar o serviço SSH para aplicar configurações
       service:
         name: sshd
