@@ -36,15 +36,11 @@ ________________________________________________________________________________
 
 O playbook executa uma atualização completa do sistema operacional, garantindo que todos os pacotes estejam atualizados para as versões mais recentes, melhorando a segurança e a estabilidade da VM.
 
-Modo de uso: comando "ansible-playbook -i host.ini update.yml"
-
 _______________________________________________________________________________________________
 
 **2º Playbook: [hostname.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/hostname.yml)**
 
 O playbook altera o hostname do sistema e atualiza o arquivo /etc/hosts para assegurar que o novo nome seja corretamente refletido no sistema.
-
-Modo de uso: comando "ansible-playbook -i host.ini hostname.yml"
 
 Para verificar se o hostname foi alterado corretamente, você pode usar o comando "cat /etc/hosts" no terminal da máquina virtual.
 
@@ -53,8 +49,6 @@ ________________________________________________________________________________
 **3º  Playbook: [users.yml](https://github.com/RosefieldC/ProjetoVagrantAnsible/blob/main/users.yml)**
 
 Este playbook cria dois usuários no sistema, um para cada integrante do grupo (helio e jessica), com base no primeiro nome de cada pessoa. A tarefa também inclui a configuração das senhas desses usuários, garantindo que eles possam acessar o sistema. 
-
-Modo de uso: comando "ansible-playbook -i host.ini users.yml"
 
 Para verificar a criação dos usuários você pode usar o comando: "getent passwd helio" "getent passwd jessica" 
 
